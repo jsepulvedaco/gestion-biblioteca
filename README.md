@@ -9,13 +9,12 @@ Las rutas del API son creadas con Express.js. El front-end funciona con Angular 
 
 ### Instalación
 
-Después de clonar el repositorio y haber descargado e instalado [Node.js](https://nodejs.org/es/) hay que ir al directorio **/Server** desde la terminal y ejecutar el comando `npm install`. Para correr el servidor, hay que ejecutar el comando 
-`node app.js` Desde este mismo directorio. El servidor va a estar escuchando las peticiones en el puerto 8080. Para acceder a este, 
-hay que ir a la URL [http://localhost:8080/](http://localhost:8080/) en el navegador 
+Después de clonar el repositorio y haber descargado e instalado [Node.js](https://nodejs.org/es/), hay que ir al directorio **/Server** del proyecto clonado usando la terminal y ejecutar el comando `npm install`. Para correr el servidor, hay que ejecutar el comando 
+`node app.js` Desde este mismo directorio. El servidor va a estar escuchando las peticiones en el puerto 8080 (http://localhost:8080/). 
 
-Cuando ya esté todo instalado, hay que ir un directorio mas arriba (**../Angular**) y desde ahí a **/Interfaz**. Allí hay que 
+Cuando ya esté todo instalado, hay que ir un directorio mas arriba (preferiblemente desde otra terminal, para tener el cliente y el servidor corriendo en diferentes terminales): **../Angular** y desde ahí a **/Interfaz**. Allí hay que 
 hacer de nuevo `npm install` para instalar los módulos y dependencias que Angular requiere. Para correr Angular, hay que ejecutar
 en la terminal `ng serve` (pues el proyecto fue desarrollado originalmente con Angular CLI). Para poder hacer esto, hay que
 installar la consola de angular por medio del comando `npm install -g @angular/cli`. Angular va a estar corriendo en la siguiente dirección [http://localhost:4200/](http://localhost:4200/).
 
-El front-end de la aplicación está basado en el código del siguiente repo [https://github.com/DeborahK/Angular-GettingStarted](Angular-GettingStarted)
+El front-end de la aplicación está basado en el código del siguiente repositorio [https://github.com/DeborahK/Angular-GettingStarted](Angular-GettingStarted)
