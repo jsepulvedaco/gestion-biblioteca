@@ -1,0 +1,13 @@
+thead {
+    color: #337AB7;
+}
+
+button	{
+	margin-top: 5px;
+}
+
+#loading {
+	position: fixed;
+    left: 50%;
+    top: 50%;
+}

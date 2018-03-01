@@ -1,0 +1,65 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}} ({{ libros && libros.length ? libros.length + ' ' : '' }}en total)
+    </div>
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-3'>
+                <p for="">Filtrar:</p>
+                <input class="form-control" type='text' [(ngModel)]='listFilter' />
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <label class="control-label" for="titulo">Títuo:</label>
+                <input [(ngModel)]="libro.titulo" class="form-control" type="text" name="titulo">
+            </div>
+
+            <div class="col-md-3">
+                <label class="control-label" for="autor">Autor:</label>
+                <input [(ngModel)]="libro.autor" class="form-control" type="text" name="autor">
+            </div>
+            <div class="col-md-3">
+                <label class="control-label" for="referencia">Referencia:</label>
+                <input [(ngModel)]="libro.referencia" class="form-control" type="text" name="referencia">
+            </div>
+            
+            <div class="col-md-3">
+                <div>&nbsp;</div>
+                <button  (click)="agregarLibro()" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+        <hr>
+
+        <div class='table-responsive'>
+            <img *ngIf="loading" id="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <table class='table'
+                    *ngIf='libros && libros.length'>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor <button (click)="ordenar('autor')">
+                            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                        </button></th>
+                        <th>Referencia</th>
+                        <th>Estado <button (click)="ordenar('estado')">
+                            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                        </button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let libro of librosFiltrados'>
+                        <td><a [routerLink]="['/products', libro.id]">{{ libro.titulo }}</a></td>
+                        <td>{{ libro.autor }}</td>
+                        <td>{{ libro.referencia }}</td>
+                        <td>{{ libro.estado == 1 ? 'disponible' : 'prestado' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div *ngIf='errorMessage' class='alert alert-danger'>
+    Error: {{ errorMessage }}
+</div>

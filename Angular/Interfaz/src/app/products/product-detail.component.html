@@ -1,0 +1,76 @@
+<div *ngIf="borrado" class="alert alert-success">
+    <strong>El libro ha sido borrado con éxito</strong>
+</div>
+
+<div *ngIf="editado" class="alert alert-success">
+    <strong>El libro ha sido editado con éxito</strong>
+</div>
+
+<div *ngIf='libro' class='panel panel-primary'>
+    <div  class='panel-heading'>
+        {{ pageTitle + ': ' + libro.titulo }}
+    </div>
+
+
+
+    <div *ngIf="!borrado" class='panel-body'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <div class='row'>
+                    <div class='col-md-3'>Titulo:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="libro.titulo" type="text" name=""
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Referencia:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="libro.referencia" type="text" name="" 
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Autor:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="libro.autor" type="text" name="" 
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Disponibilidad:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="libro.estado" type="text" name=""  disabled>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-3'>
+                        <button type="button" class="btn btn-danger"
+                        (click)='borrarLibro(libro.referencia)'>
+                            Borrar
+                        </button>
+                    </div>
+                    <div class='col-md-3'>
+                        <button type="button" class="btn btn-primary" 
+                        (click)="editar()">
+                            {{editando ? 'Aceptar Cambios' : 'Editar'}}
+                        </button>
+                    </div>
+
+                </div> 
+
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class='panel-footer'>
+        <a class='btn btn-default' (click)='onBack()' style='width:80px'>
+            <i class='glyphicon glyphicon-chevron-left'></i> Back
+        </a>
+    </div>
+</div>
