@@ -245,7 +245,6 @@ app.put('/editarUsuario', (req, res) => {
         
         usuarios.splice(indice, 1, usuario);
 
-
         fs.writeFile('usuarios.json', JSON.stringify(usuarios), (err) => {
             if (err) throw err;
             console.log('usuario editado');
@@ -253,98 +252,151 @@ app.put('/editarUsuario', (req, res) => {
         });
 
     });
-
-    
 });
 
 /* ------------------------------------------------------------------ */
-function leerArchivo (filename){
+function leerArchivo (archivo) {
     return new Promise(function(resolve, reject) {
-        fs.readFile(filename, (err, data) => {
+        fs.readFile(archivo, (err, data) => {
 
-            if(err) reject(err);
+            if (err) {
+                reject(err);
+            }
+            //console.log("data de " + archivo, data);
+            //let informacion = JSON.parse(data);
+            resolve(JSON.parse(data));
             
-            console.log(data)
-            let informacion = JSON.parse(data);
-            resolve(informacion);
+
+        });
+    });
+}
+
+function varificarExistenciaArchivo (archivo) {
+    return new Promise(function(resolve, reject) {
+        fs.readdir('../Server', (err, archivos) => {
+            if (err) reject(err);
+
+            resolve(archivos.indexOf(archivo) > -1);
         });
     });
 }
 
 
-function escribirArchivo (filename, data){
+function escribirArchivo (archivo, data) {
+    //console.log("escribir archivo recibe", archivo, data)
     return new Promise(function(resolve, reject) {
-        fs.writeFile(filename, JSON.stringify(data), (err) => {
+        fs.writeFile(archivo, JSON.stringify(data), (err) => {
 
-            if(err) reject(err);
+            if (err) {
+                console.log("error dentro de writeFile")
+                reject(err);
+            }
             
-            resolve('éxito');
+            //console.log("escribirArchivo: esto fue lo que escribí", data)
+            resolve(data);
         });
     });
 }
 
-let usuarios = [];
-let usuario;
-let libros = [];
-let libro;
-let registros = [];
-let registro;
+
 
 app.get('/prestarLibro', (req, res) => {
+    /*
+    verificar primero que el usuario pueda pedir prestados libros
+    y que el libro en cuestión no esté presetado
+    */
+
+    let usuario;
+    let usuarios = [];
+    let libros = [];
+    let libro;
+    let registros = [];
+    let registro;
 
     leerArchivo('usuarios.json')
     .then(users => {
-
-
-        
         usuarios = users;
+        usuario = users.find((u) => {
+            return u.id === 6; //req.body.id
+        });
         return leerArchivo('libros.json');
     })
     .then((books) => {
-         
-        //console.log(books)
         libros = books;
+        libro = books.find((b) => {
+            return b.id === 6;
+        });
         
-        usuario = usuarios.find((user) => {
-            return user.id === 5;
-        });
+        //console.log("1")
 
-        libro = libros.find((book) => {
-            return book.id === 5;
-        });
+        return varificarExistenciaArchivo('registros.json');
+    })
+    .then(existeRegistros => {
+        console.log("verificar", existeRegistros)
+        if (!existeRegistros) {
+            return escribirArchivo('registros.json', '[]')
+        } else {
+            return leerArchivo('registros.json');
+        }
 
-        if (usuario === undefined || libro === undefined)
-            res.status(400).send("hubo un error al procesar el préstamo");
+    })
+    .then( (regs)=> {
+        
+        registros = regs;
 
         registro = {
-            "libro": libro,
-            "usuario": usuario,
-            "fechaPrestamo": Date.now()
+            "libro": libro.titulo,
+            "autor": libro.autor,
+            "referencia": libro.referencia,
+            "usuarioNombre": usuario.nombre,
+            "usuarioApellido": usuario.apellido,
+            "usuarioCodigo": usuario.codigo,
+            "fechaPrestamo": { "prestamo": Date.now(), "devolucion": null},
+            "fechaEntregado": null,
+            "multa" : 0
         };
-        console.log("1")
-        return fs.open('registro.json');
-    })
-    .then(exists => {
-        console.log("2", exists)
+        //console.log(libro, usuario)
+        
+        libro.estado = 2;
+        usuario.permiso = false;
+        
+        let indiceUsuario = usuarios.findIndex((usuario) => {
+            //console.log("usuario.codigo", usuario.codigo);
+            return usuario.id === 6;
+        });
 
+        let indiceLibro = libros.findIndex((usuario) => {
+            //console.log("usuario.codigo", usuario.codigo);
+            return usuario.id === 6;
+        });
+        
+        usuarios.splice(indiceUsuario, 1, usuario);
+        libros.splice(indiceLibro, 1, libro);
         registros.push(registro);
-        return "hola"
+
+        
+        //console.log(libro)
+        //res.status(200).send(registros);
+        
+        return Promise.all([
+            escribirArchivo('usuarios.json', usuarios),
+            escribirArchivo('libros.json', libros),
+            escribirArchivo('registros.json', registros)])
+        .then( (p)=> {
+            //res.status(200).send(registros);
+            return p
+        });
+
     })
-    .then(respuesta => {
-        res.status(200).send('préstamo realizado')
+    .then ((p)=> {
+        res.status(200).send(registros);
+        //console.log("promise", p)
     })
     .catch( err => {
         console.log("hubo un error", err);
         res.status(500).send('error');
     });
-
-
-
 });
-
-
-
-
 
 
 

@@ -53,7 +53,7 @@
                         <td><a [routerLink]="['/libros', libro.id]">{{ libro.titulo }}</a></td>
                         <td>{{ libro.autor }}</td>
                         <td>{{ libro.referencia }}</td>
-                        <td>{{ libro.estado == 1 ? 'disponible' : 'prestado' }}</td>
+                        <td>{{ libro.estado == 1 ? 'disponible' : 'no disponible' }}</td>
                     </tr>
                 </tbody>
             </table>

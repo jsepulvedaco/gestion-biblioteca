@@ -22,7 +22,7 @@
                     <div class='col-md-3'>Nombre:</div>
                     <div class='col-md-6'>
                         <input [(ngModel)]="usuario.nombre" type="text" name=""
-                        [disabled]="!editando">
+                        [disabled]="!editando" pattern="[0-9]{3}">
                     </div>
                 </div>
                 <div class='row'>
