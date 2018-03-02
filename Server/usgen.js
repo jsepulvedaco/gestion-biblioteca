@@ -23,6 +23,12 @@ for (let i = 1; i <= 50; i++) {
 	usuario.permiso = permisos[Math.floor(Math.random() * permisos.length)];
 	usuario.codigo = 100000 + i;
 
+	if (Math.random() > 0.9) {
+		usuario.administrador = true;
+	} else {
+		usuario.administrador = false;
+	}
+
 
 	usuarios.push(usuario);
 }

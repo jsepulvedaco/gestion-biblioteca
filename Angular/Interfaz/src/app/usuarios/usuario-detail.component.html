@@ -1,0 +1,86 @@
+<div *ngIf="borrado" class="alert alert-success">
+    <strong>El usuario ha sido borrado con éxito</strong>
+</div>
+
+<div *ngIf="editado" class="alert alert-success">
+    <strong>El usuario ha sido editado con éxito</strong>
+</div>
+
+<div *ngIf='usuario' class='panel panel-primary'>
+    <div  class='panel-heading'>
+        {{ pageTitle + ': ' + usuario.nombre }}
+        <span *ngIf="usuario.administrador">(Administrador)</span>
+        <button *ngIf="!borrado" (click)="prestar()" class="btn btn-success">Prestar Libro</button>
+    </div>
+
+
+
+    <div *ngIf="!borrado" class='panel-body'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <div class='row'>
+                    <div class='col-md-3'>Nombre:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="usuario.nombre" type="text" name=""
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Apellido:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="usuario.apellido" type="text" name="" 
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Código:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="usuario.codigo" type="text" name="" 
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Administrador:</div>
+                    <div class='col-md-6'>
+                        <input type="checkbox" name="administrador" [(ngModel)]="usuario.administrador" 
+                        [disabled]="!editando">
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-3'>Disponibilidad:</div>
+                    <div class='col-md-6'>
+                        <input [(ngModel)]="usuario.permiso" type="text" name=""  disabled>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-3'>
+                        <button type="button" class="btn btn-danger"
+                        (click)='borrarUsuario(usuario.codigo)'>
+                            Borrar
+                        </button>
+                    </div>
+                    <div class='col-md-3'>
+                        <button type="button" class="btn btn-primary" 
+                        (click)="editar()">
+                            {{editando ? 'Aceptar Cambios' : 'Editar'}}
+                        </button>
+
+                    </div>
+
+                </div> 
+
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class='panel-footer'>
+        <a class='btn btn-default' (click)='onBack()' style='width:80px'>
+            <i class='glyphicon glyphicon-chevron-left'></i> Back
+        </a>
+    </div>
+</div>

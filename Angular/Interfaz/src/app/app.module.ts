@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms'; // agregado
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { ProductModule } from './products/product.module';
+import { UsuarioModule } from './usuarios/usuario.module';
 import { Pipe, PipeTransform } from '@angular/core';
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { Pipe, PipeTransform } from '@angular/core';
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
         { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
     ]),
-    ProductModule
+    ProductModule,
+    UsuarioModule
   ],
   bootstrap: [AppComponent]
 })

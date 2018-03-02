@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProductListComponent } from './product-list.component';
-import { ProductDetailComponent } from './product-detail.component';
+import { ProductListComponent } from './usuario-list.component';
+import { ProductDetailComponent } from './usuario-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ProductGuardService } from './product-guard.service';
-import { ProductService } from './product.service';
+import { ProductGuardService } from './usuario-guard.service';
+import { ProductService } from './usuario.service';
 
 @NgModule({
   imports: [
 	FormsModule,
 	CommonModule,
     RouterModule.forChild([
-        { path: 'libros', component: ProductListComponent },
-        { path: 'libros/:id',
+        { path: 'usuarios', component: ProductListComponent },
+        { path: 'usuarios/:id',
           canActivate: [ ProductGuardService ],
           component: ProductDetailComponent }
     ]),
@@ -32,4 +32,4 @@ import { ProductService } from './product.service';
     ProductGuardService
   ]
 })
-export class ProductModule { }
+export class UsuarioModule { }

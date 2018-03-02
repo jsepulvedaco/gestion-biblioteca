@@ -1,0 +1,7 @@
+div.row:last-child {
+	padding-top: 10px;
+}
+
+button.btn.btn-success {
+	margin-left: 20px;
+}

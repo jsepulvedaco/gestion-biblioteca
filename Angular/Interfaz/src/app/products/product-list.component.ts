@@ -78,7 +78,7 @@ export class ProductListComponent implements OnInit {
 
     ordenar (categoria) {
         if (categoria === 'autor') {
-            this.libros.sort((a, b) => {
+            this.librosFiltrados.sort((a, b) => {
 
                 if (a.autor < b.autor) {
                     return -1;
@@ -93,7 +93,7 @@ export class ProductListComponent implements OnInit {
         }
 
         else if (categoria === 'estado') {
-            this.libros.sort((a, b) => {
+            this.librosFiltrados.sort((a, b) => {
                 return a.estado - b.estado;
             });
         }

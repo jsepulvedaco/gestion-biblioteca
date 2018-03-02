@@ -8,8 +8,11 @@ import { Component } from '@angular/core';
             <div class='container-fluid'>
                 <a class='navbar-brand'>{{pageTitle}}</a>
                 <ul class='nav navbar-nav'>
-                    <li><a [routerLink]="['/welcome']">Home</a></li>
-                    <li><a [routerLink]="['/products']">Libros</a></li>
+                    <li><a [routerLink]="['/libros']">Libros</a></li>
+                    <li><a [routerLink]="['/usuarios']">Usuarios</a></li>
+                    <li><a [routerLink]="['/prestamos']">Préstamos</a></li>
+                    <li><a [routerLink]="['/welcome']">Información</a></li>
+                    
                 </ul>
             </div>
         </nav>

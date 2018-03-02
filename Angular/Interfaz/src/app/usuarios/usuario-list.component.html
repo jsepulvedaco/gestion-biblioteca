@@ -1,33 +1,33 @@
 <div class='panel panel-primary'>
     <div class='panel-heading'>
-        {{pageTitle}} ({{ libros && libros.length ? libros.length + ' ' : '' }}en total)
+        {{pageTitle}} ({{ usuarios && usuarios.length ? usuarios.length + ' ' : '' }}en total)
     </div>
     <div class='panel-body'>
         <div class='row'>
             <div class='col-md-3'>
-                <p >Filtrar por título:</p>
+                <p>Filtrar por código:</p>
                 <input class="form-control" type='text' [(ngModel)]='listFilter' />
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-3">
-                <label class="control-label" for="titulo">Títuo:</label>
-                <input [(ngModel)]="libro.titulo" class="form-control" type="text" name="titulo">
+                <label class="control-label" for="titulo">Nombre:</label>
+                <input [(ngModel)]="usuario.nombre" class="form-control" type="text" name="nombre">
             </div>
 
             <div class="col-md-3">
-                <label class="control-label" for="autor">Autor:</label>
-                <input [(ngModel)]="libro.autor" class="form-control" type="text" name="autor">
+                <label class="control-label" for="autor">Apellido:</label>
+                <input [(ngModel)]="usuario.apellido" class="form-control" type="text" name="apellido">
             </div>
             <div class="col-md-3">
-                <label class="control-label" for="referencia">Referencia:</label>
-                <input [(ngModel)]="libro.referencia" class="form-control" type="text" name="referencia">
+                <label class="control-label" for="referencia">Código:</label>
+                <input [(ngModel)]="usuario.codigo" class="form-control" type="text" name="codigo">
             </div>
             
             <div class="col-md-3">
                 <div>&nbsp;</div>
-                <button  (click)="agregarLibro()" class="btn btn-primary">Agregar</button>
+                <button  (click)="agregarUsuario()" class="btn btn-primary">Agregar</button>
             </div>
         </div>
         <hr>
@@ -35,25 +35,29 @@
         <div class='table-responsive'>
             <img *ngIf="loading" id="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <table class='table'
-                    *ngIf='libros && libros.length'>
+                    *ngIf='usuarios && usuarios.length'>
                 <thead>
                     <tr>
-                        <th>Título</th>
-                        <th>Autor <button (click)="ordenar('autor')">
+                        <th>Nombre</th>
+                        <th>Apellido
+                            <button (click)="ordenar('nombre')">
                             <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                        </button></th>
-                        <th>Referencia</th>
-                        <th>Estado <button (click)="ordenar('estado')">
+                            </button>
+                        </th>
+                        <th>Código</th>
+                        <th>Disponibilidad
+                            <button (click)="ordenar('permiso')">
                             <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                        </button></th>
+                            </button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let libro of librosFiltrados'>
-                        <td><a [routerLink]="['/libros', libro.id]">{{ libro.titulo }}</a></td>
-                        <td>{{ libro.autor }}</td>
-                        <td>{{ libro.referencia }}</td>
-                        <td>{{ libro.estado == 1 ? 'disponible' : 'prestado' }}</td>
+                    <tr *ngFor='let usuario of usuariosFiltrados'>
+                        <td><a [routerLink]="['/usuarios', usuario.id]">{{ usuario.administrador ? usuario.nombre + ' (admin)' : usuario.nombre }}</a></td>
+                        <td>{{ usuario.apellido }}</td>
+                        <td>{{ usuario.codigo }}</td>
+                        <td>{{ usuario.permiso ? 'sí' : 'no' }}</td>
                     </tr>
                 </tbody>
             </table>
